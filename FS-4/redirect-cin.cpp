@@ -14,12 +14,12 @@ void initialize(int argc, char** argv) {
 	const char* file = argv[1];
 	int fd = open(file, O_RDONLY);
 	if (fd == -1) {
-		perror("Error opening file\n");
+		perror("Error opening file");
 		exit(1);
 	}
 
 	if(dup2(fd, 0) == -1) {
-		perror("Error redirecting stdin\n");
+		perror("Error redirecting stdin");
 		close(fd);
 		exit(1);
 	}
@@ -31,8 +31,9 @@ int main(int argc, char** argv) {
 	initialize(argc, argv);
 
 	std::string input;
-	std::cin >> input;
-	std::string reversed = input;
-	std::reverse(reversed.begin(), reversed.end());
-	std::cout << reverse << std::endl;
+	while(std::getline(std::cin, input)) {
+		std::string reversed = input;
+		std::reverse(reversed.begin(), reversed.end());
+		std::cout << reversed << std::endl;
+	}
 }
